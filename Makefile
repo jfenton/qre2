@@ -35,7 +35,7 @@ l32: $(SRC) $(RE2_LIB32)
 	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_L) $(SRC) $(RE2_LIB32) -o re2_l32.so
 
 clean:
-	rm *.so *.a
+	rm -f *.so *.a
 
 install:
 	if [ -z "${QHOME}" ] ; then echo "QHOME not defined!" ; exit 1 ; fi

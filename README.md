@@ -1,7 +1,7 @@
 qre2
 ====
 
-Google RE2 extension for kdb+/q.
+Regex extension for kdb+/q, using Google's re2 library.
 
 # Build
 
@@ -30,6 +30,6 @@ Google RE2 extension for kdb+/q.
 
 LGPLv3. See `LICENSE` and `COPYING.LESSER`.
 
-Copyright (c) 2016 Jay Fenton.
+Copyright (c) 2016 Jay Fenton <na.nu@na.nu>
 
-Other parts of this software (eg: Google RE2) are covered by other licences.
+Other parts of this software (e.g. Google re2, Kx k.h) are covered by other licences.
