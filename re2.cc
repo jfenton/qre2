@@ -32,8 +32,33 @@ extern "C" {
 
 Z S makeErrStr(S s1,S s2){Z __thread char b[256];snprintf(b,256,"%s - %s",s1,s2);R b;}
 Z __inline S c2s(S s,J n){S r=(S)malloc(n+1);R r?memcpy(r,s,n),r[n]=0,r:(S)krr((S)"wsfull (re2)");}
-K PartialMatchN(K x,K y){
 
+K FullMatch(K x,K y){
+  S s,sy;K r;
+  P(x->t&&x->t!=KC&&x->t!=KS&&x->t!=-KS||y->t!=KC,krr((S)"type"))
+  U(sy=c2s((S)kC(y),y->n))
+  RE2 pattern(sy,RE2::Quiet);
+  free(sy);
+  P(!pattern.ok(),krr(makeErrStr((S)"bad regex",(S)pattern.error().c_str())))
+  if(!x->t||x->t==KS){
+    J i=0;
+    K r=ktn(KB,x->n);
+    for(;i<x->n;i++){
+      K z=0;
+      P(!x->t&&(z=kK(x)[i])->t!=KC,(r0(r),krr((S)"type")))
+      s=z?c2s((S)kC(z),z->n):kS(x)[i];P(!s,(r0(r),(K)0))
+      kG(r)[i]=RE2::FullMatch(s,pattern);
+      if(z)free(s);
+    }
+    R r;
+  }
+  s=x->t==-KS?x->s:c2s((S)kC(x),x->n);
+  r=kb(RE2::FullMatch(s,pattern));
+  if(s!=x->s)free(s);
+  R r;
+}
+
+K PartialMatchN(K x,K y){
   S s,sy;K r;
   P(x->t&&x->t!=KC&&x->t!=KS&&x->t!=-KS||y->t!=KC,krr((S)"type"))
   U(sy=c2s((S)kC(y),y->n))
