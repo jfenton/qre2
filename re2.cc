@@ -85,7 +85,7 @@ K PartialMatchN(K x,K y){
       K grs = ktn(0,0);
       std::map<std::string,int>::const_iterator iter_grps=grp_to_idx.cbegin();
       for(;iter_grps!=grp_to_idx.cend();++iter_grps) {
-        #ifndef NBDEBUG
+        #ifdef DBG
         cerr << "named group: " << iter_grps->first << endl;
         #endif
         K grp=kpn((char *)iter_grps->first.data(), iter_grps->first.length());
@@ -116,7 +116,7 @@ K PartialMatchN(K x,K y){
       K rs = ktn(0,0);
       if(mode == 1) {
         for(;iter_grps!=grp_to_idx.cend();++iter_grps) {
-          #ifndef NDEBUG
+          #ifdef DBG
           cerr << "named group: " << iter_grps->first << " = " << ws[iter_grps->second-1].as_string() << " (" << iter_grps->second << ")"  << endl;
           #endif
           K cap=kpn((char *)ws[iter_grps->second-1].as_string().c_str(), ws[iter_grps->second-1].length());
@@ -124,7 +124,7 @@ K PartialMatchN(K x,K y){
         }
       } else if(mode == 2) {
         for(int i = 0; i < (int)args_count; ++i){
-          #ifndef NDEBUG  
+          #ifdef DBG  
           cerr << "method 1 " << ws[i] << endl;
           #endif
           K cap=kpn((char *)ws[i].data(), ws[i].length());
