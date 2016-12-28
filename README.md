@@ -3,6 +3,13 @@ qre2
 
 Regex extension for kdb+/q, using Google's re2 library.
 
+# Checkout
+
+    $ git clone https://github.com/jfenton/qre2.git
+    $ cd qre2
+    $ git submodule init
+    $ git submodule update
+
 # Build
 
     $ make {m32,m64,l32,l64}
