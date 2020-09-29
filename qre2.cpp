@@ -28,12 +28,10 @@
 using namespace re2;
 using namespace std;
 
-extern "C" {
-
 Z S makeErrStr(S s1,S s2){Z __thread char b[256];snprintf(b,256,"%s - %s",s1,s2);R b;}
 Z __inline S c2s(S s,J n){S r=(S)malloc(n+1);R r?memcpy(r,s,n),r[n]=0,r:(S)krr((S)"wsfull (re2)");}
 
-K FullMatch(K x,K y){
+extern "C" K FullMatch(K x,K y){
   S s,sy;K r;
   P(x->t&&x->t!=KC&&x->t!=KS&&x->t!=-KS||y->t!=KC,krr((S)"type"))
   U(sy=c2s((S)kC(y),y->n))
@@ -58,7 +56,7 @@ K FullMatch(K x,K y){
   R r;
 }
 
-K PartialMatchN(K x,K y){
+extern "C" K PartialMatchN(K x,K y){
   S s,sy;K r;
   P(x->t&&x->t!=KC&&x->t!=KS&&x->t!=-KS||y->t!=KC,krr((S)"type"))
   U(sy=c2s((S)kC(y),y->n))
@@ -139,7 +137,7 @@ K PartialMatchN(K x,K y){
   } else { R krr((S)"list"); }
 }
 
-K PartialMatch(K x, K y)
+extern "C" K PartialMatch(K x, K y)
 {
   S s, sy;
   K r;
@@ -171,4 +169,15 @@ K PartialMatch(K x, K y)
   R r;
 }
 
-} // Extern C
+Z K1(f1){R r1(x);}
+Z K2(f2){R r1(y);}
+extern "C" K1(qre2) {
+  K y=ktn(0,2);
+  x=ktn(KS,2);
+  xS[0]=ss((char *)"reximpl");
+  xS[1]=ss((char *)"rexmatch");
+  kK(y)[0]=dl(reinterpret_cast<V*>(PartialMatchN),2);
+  kK(y)[1]=dl(reinterpret_cast<V*>(PartialMatch),2);
+  R xD(x,y);
+}
+
