@@ -7,7 +7,7 @@ CFLAGS_64 := -m64
 CFLAGS_M := -bundle -undefined dynamic_lookup
 CFLAGS_L := -shared -fPIC -lstdc++
 
-SRC = re2.cc
+SRC = qre2.cpp
 
 RE2_CFLAGS = -O3 -fPIC
 RE2_LIB = re2/obj/libre2.a
@@ -23,25 +23,25 @@ $(RE2_LIB64):
 	mv $(RE2_LIB) $(RE2_LIB64)
 
 m64: $(SRC) $(RE2_LIB64)
-	$(CC) $(CFLAGS) $(CFLAGS_64) $(CFLAGS_M) $(SRC) $(RE2_LIB64) -o re2_m64.so
+	$(CC) $(CFLAGS) $(CFLAGS_64) $(CFLAGS_M) $(SRC) $(RE2_LIB64) -o qre2_m64.so
 
 m32: $(SRC) $(RE2_LIB32)
-	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_M) $(SRC) $(RE2_LIB32) -o re2_m32.so
+	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_M) $(SRC) $(RE2_LIB32) -o qre2_m32.so
 
 l64: $(SRC) $(RE2_LIB64)
-	$(CC) $(CFLAGS) $(CFLAGS_64) $(CFLAGS_L) $(SRC) $(RE2_LIB64) -o re2_l64.so
+	$(CC) $(CFLAGS) $(CFLAGS_64) $(CFLAGS_L) $(SRC) $(RE2_LIB64) -o qre2_l64.so
 
 l32: $(SRC) $(RE2_LIB32)
-	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_L) $(SRC) $(RE2_LIB32) -o re2_l32.so
+	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_L) $(SRC) $(RE2_LIB32) -o qre2_l32.so
 
 clean:
 	rm -f *.so *.a
 
 install:
 	if [ -z "${QHOME}" ] ; then echo "QHOME not defined!" ; exit 1 ; fi
-	[ -f "re2_m64.so" ] && cp re2_m64.so ${QHOME}/m64/re2.so || true
-	[ -f "re2_m32.so" ] && cp re2_m32.so ${QHOME}/m32/re2.so || true
-	[ -f "re2_l64.so" ] && cp re2_l64.so ${QHOME}/l64/re2.so || true
-	[ -f "re2_l32.so" ] && cp re2_l32.so ${QHOME}/l32/re2.so || true
+	[ -f "qre2_m64.so" ] && cp qre2_m64.so ${QHOME}/m64/qre2.so || true
+	[ -f "qre2_m32.so" ] && cp qre2_m32.so ${QHOME}/m32/qre2.so || true
+	[ -f "qre2_l64.so" ] && cp qre2_l64.so ${QHOME}/l64/qre2.so || true
+	[ -f "qre2_l32.so" ] && cp qre2_l32.so ${QHOME}/l32/qre2.so || true
 
 .PHONY: clean install m32 m64 l32 l64
