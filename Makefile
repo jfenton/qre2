@@ -29,7 +29,7 @@ m32: $(SRC) $(RE2_LIB32)
 	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_M) $(SRC) $(RE2_LIB32) -o qre2_m32.so
 
 l64: $(SRC) $(RE2_LIB64)
-	$(CC) $(CFLAGS) $(CFLAGS_64) $(CFLAGS_L) $(SRC) $(RE2_LIB64) -o qre2_l64.so /usr/lib/gcc/x86_64-linux-gnu/8/libstdc++.a
+	$(CC) $(CFLAGS) $(CFLAGS_64) $(CFLAGS_L) $(SRC) $(RE2_LIB64) -o qre2_l64.so
 
 l32: $(SRC) $(RE2_LIB32)
 	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_L) $(SRC) $(RE2_LIB32) -o qre2_l32.so
