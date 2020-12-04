@@ -5,7 +5,7 @@ CFLAGS_32 := -m32
 CFLAGS_64 := -m64
 
 CFLAGS_M := -bundle -undefined dynamic_lookup
-CFLAGS_L := -shared -fPIC -lstdc++
+CFLAGS_L := -shared -fPIC -static-libstdc++
 
 SRC = qre2.cpp
 
@@ -29,7 +29,7 @@ m32: $(SRC) $(RE2_LIB32)
 	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_M) $(SRC) $(RE2_LIB32) -o qre2_m32.so
 
 l64: $(SRC) $(RE2_LIB64)
-	$(CC) $(CFLAGS) $(CFLAGS_64) $(CFLAGS_L) $(SRC) $(RE2_LIB64) -o qre2_l64.so
+	$(CC) $(CFLAGS) $(CFLAGS_64) $(CFLAGS_L) $(SRC) $(RE2_LIB64) -o qre2_l64.so /usr/lib/gcc/x86_64-linux-gnu/8/libstdc++.a
 
 l32: $(SRC) $(RE2_LIB32)
 	$(CC) $(CFLAGS) $(CFLAGS_32) $(CFLAGS_L) $(SRC) $(RE2_LIB32) -o qre2_l32.so
